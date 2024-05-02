@@ -2,6 +2,10 @@
 
 sudo docker run -t -d -p 8181:8181 -p 8101:8101 -p 5005:5005 -p 830:830 --name onos onosproject/onos
 
+docker container rm onos 
+
+docker container stop onos 
+
 sudo docker exec -ti onos /bin/bash
 
 http://[ip]:8181/onos/ui/login.html
@@ -16,7 +20,7 @@ http://[ip]:8181/onos/ui/login.html
 
 -- PRUEBAS
 
-sudo mn --controller remote,ip=172.17.0.2 --switch=ovsk,protocols=OpenFlow10 --topo tree,3,3
+mn --controller remote,ip=172.17.0.2 --switch=ovsk,protocols=OpenFlow10 --topo tree,3,3
 
 
 
