@@ -19,7 +19,7 @@ def myNetwork():
     c0=net.addController(name='c0',
                       controller=RemoteController,
                       ip='172.17.0.2',
-                      protocol='udp',
+                      protocol='tcp',
                       port=6633)
     
     info( '*** Add switches\n')
