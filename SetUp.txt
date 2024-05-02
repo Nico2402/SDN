@@ -1,0 +1,27 @@
+
+sudo docker run -t -d -p 8181:8181 -p 8101:8101 -p 5005:5005 -p 830:830 --name onos onosproject/onos
+
+sudo docker exec -ti onos /bin/bash
+
+http://[ip]:8181/onos/ui/login.html
+
+*  OpenFlow Base Provider
+*  Reactive Forwarding 
+*  Control Message Stats Provider
+*  OpenFlow Agent
+* OpenFlow Provider Suite
+* Openflow overlay
+
+
+
+sudo mn --controller remote,ip=172.17.0.2 --switch=ovsk,protocols=OpenFlow10 --topo tree,3,3
+
+
+
+
+
+sudo docker run -it --rm --privileged -e DISPLAY              -v /tmp/.X11-unix:/tmp/.X11-unix              -v /lib/modules:/lib/modules              iwaseyusuke/mininet
+
+git clone https://github.com/Nico2402/SDN.git
+
+git pull origin main
