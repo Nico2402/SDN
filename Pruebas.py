@@ -23,7 +23,7 @@ def myNetwork():
                       port=6633)
     
     info( '*** Add switches\n')
-    s1 = net.addSwitch('s1', cls=OVSKernelSwitch, protocols=["OpenFlow10"])
+    s1 = net.addSwitch('s1', cls=OVSKernelSwitch, protocols=["OpenFlow10"]) #OF13
     s2 = net.addSwitch('s2', cls=OVSKernelSwitch, protocols=["OpenFlow10"])
 
     info( '*** Add hosts\n')
