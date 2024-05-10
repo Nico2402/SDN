@@ -54,8 +54,6 @@ def myNetwork():
      
     info( '*** Starting network\n')
     net.build()
-    net.start()
-    net.xterms()
 
     info( '*** Starting controllers\n')
     for controller in net.controllers:
