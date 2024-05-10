@@ -64,7 +64,7 @@ def myNetwork():
     net.get('s2').start([c0])
 
     info( '*** Post configure switches and hosts\n')
-
+    net.xterms()
     CLI(net)
     net.stop()
 
