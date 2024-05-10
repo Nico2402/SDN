@@ -51,9 +51,11 @@ def myNetwork():
     net.addLink(h8, s2)
     net.addLink(h9, s1)
     net.addLink(h10, s2)
-
+     
     info( '*** Starting network\n')
     net.build()
+    net.start()
+    net.xterms()
 
     info( '*** Starting controllers\n')
     for controller in net.controllers:
@@ -64,7 +66,7 @@ def myNetwork():
     net.get('s2').start([c0])
 
     info( '*** Post configure switches and hosts\n')
-    net.xterms()
+
     CLI(net)
     net.stop()
 
