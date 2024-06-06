@@ -17,6 +17,6 @@ if __name__ == "__main__":
     url = f"http://{target_ip}:{target_port}"
 
     # Crea múltiples hilos para simular múltiples clientes
-    for i in range(50):  # Ajusta el número de hilos según sea necesario
+    for i in range(150):  # Ajusta el número de hilos según sea necesario
         thread = threading.Thread(target=send_request, args=(url,))
         thread.start()
