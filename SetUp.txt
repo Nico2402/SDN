@@ -38,3 +38,15 @@ git clone https://github.com/Nico2402/SDN.git
 cd SDN/
 
 git pull origin main
+
+
+
+
+--Mirar PID de cada Host
+
+ps aux | grep mininet
+
+mnexec -a [PID] /bin/bash
+
+--CORRER SERVIDOR HTTP
+python3 -m http.server 80
