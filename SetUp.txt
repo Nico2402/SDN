@@ -25,7 +25,7 @@ mn --controller remote,ip=172.17.0.2 --switch=ovsk,protocols=OpenFlow10 --topo l
 
 --MININET
 
-sudo docker run -t --rm --privileged -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -v /lib/modules:/lib/modules iwaseyusuke/mininet
+sudo docker run -t -d --name mininet --memory 512m --memory-swap 1g --privileged -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -v /lib/modules:/lib/modules iwaseyusuke/mininet
 
 apt update
 
