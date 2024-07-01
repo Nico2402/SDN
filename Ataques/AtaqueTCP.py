@@ -12,7 +12,7 @@ def send_tcp_request(ip, port):
             try:
                 # Enviar datos constantemente
                 sock.sendall(b"GET / HTTP/1.1\r\nHost: " + ip.encode('utf-8') + b"\r\n\r\n")
-                time.sleep(0.1)  # Pausa breve para evitar abrumar el sistema local
+                time.sleep(0.5)  # Pausa breve para evitar abrumar el sistema local
             except socket.error:
                 print(f"Error al enviar datos a {ip}:{port}")
                 break
@@ -29,4 +29,4 @@ if __name__ == "__main__":
     for i in range(2000):  # Aumenta el número de hilos para generar más carga
         thread = threading.Thread(target=send_tcp_request, args=(target_ip, target_port))
         thread.start()
-        time.sleep(0.01)  # Retraso breve para escalonar la creación de conexiones
+        time.sleep(0.05)  # Retraso breve para escalonar la creación de conexiones
