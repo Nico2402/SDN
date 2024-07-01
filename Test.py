@@ -14,7 +14,7 @@ def check_server(ip, port):
         print(f"El servidor en {url} está caído.")
 
 if __name__ == "__main__":
-    ip = "10.0.0.10"  # Reemplaza con la IP de tu servidor
+    ip = "10.0.0.1"  # Reemplaza con la IP de tu servidor
     port = 80         # Reemplaza con el puerto de tu servidor
     while True:
         check_server(ip, port)
