@@ -7,7 +7,8 @@ class VulnerableServer(http.server.SimpleHTTPRequestHandler):
         if self.path == "/admin":
             self.send_response(200)
             self.end_headers()
-            self.wfile.write(b"<h1>Panel de administración</h1>")
+            response = "<h1>Panel de administración</h1>".encode('utf-8')
+            self.wfile.write(response)
         else:
             # Respuesta estándar para otras rutas
             super().do_GET()
@@ -18,11 +19,11 @@ class VulnerableServer(http.server.SimpleHTTPRequestHandler):
         post_data = self.rfile.read(content_length)
         self.send_response(200)
         self.end_headers()
-        response = f"<h1>Datos recibidos:</h1><p>{post_data.decode('utf-8')}</p>"
-        self.wfile.write(response.encode('utf-8'))
+        response = f"<h1>Datos recibidos:</h1><p>{post_data.decode('utf-8')}</p>".encode('utf-8')
+        self.wfile.write(response)
 
 # Configurar el servidor
-port = 80  # Puerto donde se ejecutará el servidor (puedes cambiarlo si es necesario)
+port = 8000  # Puerto donde se ejecutará el servidor (puedes cambiarlo si es necesario)
 
 # Ejecutar el servidor
 with socketserver.TCPServer(("", port), VulnerableServer) as httpd:
