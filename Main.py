@@ -1,8 +1,8 @@
 ## script to test creation of containers in containernet ## 
 
-#from mininet.net import Containernet 
+from mininet.net import Containernet 
 
-#from mininet.net import Containernet 
+from mininet.net import Containernet 
 
 from mininet.net import mininet
 
