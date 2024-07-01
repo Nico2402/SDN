@@ -23,7 +23,7 @@ class VulnerableServer(http.server.SimpleHTTPRequestHandler):
         self.wfile.write(response)
 
 # Configurar el servidor
-port = 8000  # Puerto donde se ejecutará el servidor (puedes cambiarlo si es necesario)
+port = 80  # Puerto donde se ejecutará el servidor (puedes cambiarlo si es necesario)
 
 # Ejecutar el servidor
 with socketserver.TCPServer(("", port), VulnerableServer) as httpd:
