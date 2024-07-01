@@ -22,7 +22,7 @@ def send_tcp_request(ip, port, message, delay):
         print(f"Error: {e}")
 
 if __name__ == "__main__":
-    target_ip = "10.0.0.10"  # Reemplaza con la IP del servidor de prueba
+    target_ip = "10.0.0.1"  # Reemplaza con la IP del servidor de prueba
     target_port = 80         # Reemplaza con el puerto del servidor de prueba
     message = "Hello, Server!"  # Mensaje a enviar
     delay = 0.01  # Intervalo en segundos entre peticiones (ajusta según sea necesario)
