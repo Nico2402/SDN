@@ -38,7 +38,7 @@ port=6653,  ip= contip)
 
 info('*** Net created \n') 
 
-h1 = net.addHost( 'h1', ) 
+h1 = net.addHost( 'h1' ) 
 
 h2 = net.addHost( 'h2' ) 
 
