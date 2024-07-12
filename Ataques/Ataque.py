@@ -9,7 +9,7 @@ def pingen(qp,ifa,hServerIP):
     for i in range(qp): 
         r=RandMAC()._fix() 
         i=RandIP()._fix() 
-        packet = Ether(dst='ff:ff:ff:ff:ff:ff',src=r,type=0x0806) / ARP(hwsrc=r ,psrc= i,pdst=hServerIP) 
+        packet = Ether(dst='ff:ff:ff:ff:ff:ff',src=r,type=0x0806) / ARP(hwsrc=r ,psrc= i,pdst=hServerIP,type=0x0806) 
         sendp(packet, count=100,iface=ifa) 
 
   
