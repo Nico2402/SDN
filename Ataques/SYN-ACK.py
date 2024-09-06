@@ -8,7 +8,7 @@ def send_tcp_ack(ip, port):
     #sport = random.choice(source_ports)
     
     syn = IP(dst=ip)/TCP(sport=1024, dport=port, flags='S')
-    send(syn)
+    send(syn,timeout=1000)
     #syn_ack = sr1(syn, timeout=10, verbose=0)  # Enviar y recibir el SYN-ACK
 
     #if syn_ack is None:
