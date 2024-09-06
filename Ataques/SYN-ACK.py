@@ -42,7 +42,7 @@ def send_tcp_ack(ip, port):
 
 if __name__ == "__main__":
     target_ip = "10.0.0.1"  # IP del servidor de prueba
-    target_port = 80        # Puerto del servidor de prueba
+    target_port = 8080      # Puerto del servidor de prueba
     for i in range(1):
         send_tcp_ack(target_ip, target_port)
     # Crea múltiples hilos para simular múltiples conexiones simultáneas
