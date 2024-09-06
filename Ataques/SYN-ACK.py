@@ -10,7 +10,7 @@ def send_tcp_ack(ip, port):
     if syn_ack is None:
         print(f"Conexión a {ip}:{port} falló al recibir SYN-ACK.")
         return
-    else
+    else:
         print(syn_ack)
 
     # Asegúrate de que se haya recibido un SYN-ACK
