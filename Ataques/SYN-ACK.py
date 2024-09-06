@@ -5,7 +5,7 @@ import time
 def send_tcp_ack(ip, port):
     # Crear el paquete SYN para iniciar la conexión
     syn = IP(dst=ip)/TCP(dport=port, flags='S')
-    syn_ack = sr1(syn, timeout=2)  # Enviar y recibir el SYN-ACK
+    syn_ack = sr1(syn, timeout=10)  # Enviar y recibir el SYN-ACK
     
     if syn_ack is None:
         print(f"Conexión a {ip}:{port} falló al recibir SYN-ACK.")
