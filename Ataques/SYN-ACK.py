@@ -1,9 +1,6 @@
 from scapy.all import *
 import threading
 import time
-
-def create_syn_packet(src_ip, dst_ip, dst_port):
-
 from pypacker.layer12 import ethernet
 from pypacker.layer3 import ip
 from pypacker.layer4 import tcp
