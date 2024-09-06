@@ -3,6 +3,14 @@ from mininet.node import Controller, RemoteController, OVSSwitch
 from mininet.cli import CLI
 from mininet.log import setLogLevel
 from mininet.log import setLogLevel, info
+from mininet.net import Mininet
+from mininet.node import Controller, RemoteController, OVSController
+from mininet.node import CPULimitedHost, Host, Node
+from mininet.node import OVSKernelSwitch, UserSwitch
+from mininet.cli import CLI
+from mininet.log import setLogLevel, info
+from mininet.link import TCLink, Intf, OVSLink
+from subprocess import call
 
 def topology():
     # Crear la red
@@ -12,7 +20,7 @@ def topology():
                    build=False,
                    link=OVSLink,
                    ipBase='10.0.0.0/8')
-                   
+
     # Agregar controlador
     c0 = net.addController(name='c0',
                       controller=RemoteController,
