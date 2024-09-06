@@ -1,9 +1,4 @@
 from mininet.net import Mininet
-from mininet.node import Controller, RemoteController, OVSSwitch
-from mininet.cli import CLI
-from mininet.log import setLogLevel
-from mininet.log import setLogLevel, info
-from mininet.net import Mininet
 from mininet.node import Controller, RemoteController, OVSController
 from mininet.node import CPULimitedHost, Host, Node
 from mininet.node import OVSKernelSwitch, UserSwitch
@@ -12,43 +7,52 @@ from mininet.log import setLogLevel, info
 from mininet.link import TCLink, Intf, OVSLink
 from subprocess import call
 
-def topology():
-    # Crear la red
+def myNetwork():
 
-    #net = Mininet(controller=RemoteController, switch=OVSSwitch)
     net = Mininet( topo=None,
                    build=False,
                    link=OVSLink,
                    ipBase='10.0.0.0/8')
+    
+    info( '*** Adding controller\n' )
 
-    # Agregar controlador
-    c0 = net.addController(name='c0',
+    c0=net.addController(name='c0',
                       controller=RemoteController,
                       ip='172.17.0.2',
                       protocol='tcp',
                       port=6633)
+    
+    info( '*** Add switches\n')
+    s1 = net.addSwitch('s1', cls=OVSKernelSwitch, protocols=["OpenFlow13"]) #OF13
 
-    # Agregar switch
-    s1 = net.addSwitch('s1')
+    info( '*** Add hosts\n')
+    h1 = net.addHost('h1', cls=Host, ip='10.0.0.1', defaultRoute=None)
+    h2 = net.addHost('h2', cls=Host, ip='10.0.0.2', defaultRoute=None)
+    h3 = net.addHost('h3', cls=Host, ip='10.0.0.3', defaultRoute=None)
+    h4 = net.addHost('h4', cls=Host, ip='10.0.0.4', defaultRoute=None)
+    h5 = net.addHost('h5', cls=Host, ip='10.0.0.5', defaultRoute=None)
+    h6 = net.addHost('h6', cls=Host, ip='10.0.0.6', defaultRoute=None)
+    h7 = net.addHost('h7', cls=Host, ip='10.0.0.7', defaultRoute=None)
+    h8 = net.addHost('h8', cls=Host, ip='10.0.0.8', defaultRoute=None)
+    h9 = net.addHost('h9', cls=Host, ip='10.0.0.9', defaultRoute=None)
+    h10 = net.addHost('h10', cls=Host, ip='10.0.0.10', defaultRoute=None)
 
-    # Agregar hosts
-    hosts = []
-    for i in range(1, 11):
-        host = net.addHost(f'h{i}')
-        net.addLink(host, s1)
-        hosts.append(host)
+    info( '*** Add links\n')
 
-    # Iniciar la red
-    net.start()
-
-    # Configurar el puerto espejo en el switch
-    mirror_port = 11  # Suponiendo que el puerto 11 no está ocupado
-    s1.cmd(f'ovs-vsctl -- set Bridge s1 mirrors=@m -- --id=@s1 get Bridge s1 '
-           f'-- --id=@p1 get Port s1-eth1 '
-           f'-- --id=@p11 get Port s1-eth{mirror_port} '
-           f'-- --id=@m create Mirror name=m0 select-all=true output-port=@p11')
-
-    print("Puerto espejo configurado en el switch s1 en el puerto", mirror_port)
+    net.addLink(s1, s1)
+    net.addLink(h1, s1)
+    net.addLink(h2, s1)
+    net.addLink(h3, s1)
+    net.addLink(h4, s1)
+    net.addLink(h5, s1)
+    net.addLink(h6, s1)
+    net.addLink(h7, s1)
+    net.addLink(h8, s1)
+    net.addLink(h9, s1)
+    net.addLink(h10, s1)
+     
+    info( '*** Starting network\n')
+    net.build()
 
     info( '*** Starting controllers\n')
     for controller in net.controllers:
@@ -56,14 +60,13 @@ def topology():
 
     info( '*** Starting switches\n')
     net.get('s1').start([c0])
-    # Iniciar la CLI para interacción
 
     info( '*** Post configure switches and hosts\n')
-    CLI(net)
 
-    # Detener la red
+    CLI(net)
     net.stop()
 
 if __name__ == '__main__':
-    setLogLevel('info')
-    topology()
+    setLogLevel( 'info' )
+    myNetwork()
+
