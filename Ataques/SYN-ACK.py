@@ -4,14 +4,17 @@ import time
 
 def send_tcp_ack(ip, port):
     # Crear el paquete SYN para iniciar la conexión
-    syn = IP(dst=ip)/TCP(dport=port, flags='S')
-    #syn_ack = sr(syn, timeout=10, verbose=0)  # Enviar y recibir el SYN-ACK
-    send(syn)
+    source_ports = list(range(1024, 65535))
+    sport = random.choice(source_ports)
+    
+    syn = IP(dst=ip)/TCP(sport=sport, dport=port, flags='S')
+    syn_ack = sr(syn, timeout=10, verbose=0)  # Enviar y recibir el SYN-ACK
+
     if syn_ack is None:
         print(f"Conexión a {ip}:{port} falló al recibir SYN-ACK.")
         return
     else:
-        print(syn_ack)
+       print(syn_ack)
 
     # Asegúrate de que se haya recibido un SYN-ACK
     #if syn_ack.haslayer(TCP) and syn_ack[TCP].flags == 'SA':
