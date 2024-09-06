@@ -7,6 +7,7 @@ docker container rm onos
 docker container stop onos 
 
 sudo docker exec -ti onos /bin/bash
+sudo docker exec -ti mininet /bin/bash
 
 http://52.207.205.4:8181/onos/ui/login.html
 
