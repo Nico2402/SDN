@@ -3,16 +3,33 @@ import threading
 import time
 import socket
 
-def send_tcp_ack(ip, port):
-    # Crear el paquete SYN para iniciar la conexión
+def create_syn_packet(dst_ip,dst_port):
+    # Crear el paquete SYN con scapy
     source_ports = list(range(1024, 65535))
     sport = random.choice(source_ports)
+    packet = Ether() / IP(dst=dst_ip) / TCP(sport=sport, dport=dst_port, flags='S')
     
-    syn = IP(dst=ip)/TCP(sport=sport, dport=port, flags='S')
+    # Convertir el paquete a bytes
+    return bytes(packet)
+
+def send_packet(packet, iface):
+    # Crear un socket raw
     sock = socket.socket(socket.AF_PACKET, socket.SOCK_RAW, socket.htons(0x0800))
-    sock.bind(('h2-eth0', 0))
+    
+    # Configurar la interfaz
+    sock.bind((iface, 0))
+
+    # Enviar el paquete
     sock.send(packet)
-    #syn_ack = sr1(syn, timeout=10, verbose=0)  # Enviar y recibir el SYN-ACK
+    print("Paquete SYN enviado!")
+
+
+if __name__ == "__main__":
+    target_ip = "10.0.0.1"  # IP del servidor de prueba
+    target_port = 80      # Puerto del servidor de prueba
+    syn = create_syn_packet(target_ip,target_port)
+    send_packet(syn, 'h2-eth0'):
+
 
     #if syn_ack is None:
     #    print(f"Conexión a {ip}:{port} falló al recibir SYN-ACK.")
@@ -44,11 +61,7 @@ def send_tcp_ack(ip, port):
     #else:
     #    print(f"No se recibió un SYN-ACK válido desde {ip}:{port}")
 
-if __name__ == "__main__":
-    target_ip = "10.0.0.1"  # IP del servidor de prueba
-    target_port = 8080      # Puerto del servidor de prueba
-    #for i in range(0):
-    send_tcp_ack(target_ip, target_port)
+
     # Crea múltiples hilos para simular múltiples conexiones simultáneas
     #for i in range(1):  # Ajusta el número de hilos según sea necesario
      #   thread = threading.Thread(target=send_tcp_ack, args=(target_ip, target_port))
