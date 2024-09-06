@@ -61,6 +61,15 @@ def myNetwork():
     info( '*** Starting switches\n')
     net.get('s1').start([c0])
 
+    nfo('*** Configuring mirror port on switch s1\n')
+
+    # Configuración del puerto espejo en el switch s1
+    mirror_port = 11  # Puerto de salida del tráfico espejado
+    s1.cmd(f'ovs-vsctl -- --id=@m create Mirror name=m0 select-all=true output-port=@p{mirror_port} '
+           f'-- add Bridge s1 mirrors @m')
+
+    info(f'*** Mirror port configured on port {mirror_port} of switch s1\n')
+
     info( '*** Post configure switches and hosts\n')
 
     CLI(net)
