@@ -61,7 +61,7 @@ def myNetwork():
     info( '*** Starting switches\n')
     net.get('s1').start([c0])
 
-    nfo('*** Configuring mirror port on switch s1\n')
+    info('*** Configuring mirror port on switch s1\n')
 
     # Configuración del puerto espejo en el switch s1
     mirror_port = 11  # Puerto de salida del tráfico espejado
