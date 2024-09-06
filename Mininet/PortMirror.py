@@ -2,6 +2,7 @@ from mininet.net import Mininet
 from mininet.node import Controller, RemoteController, OVSSwitch
 from mininet.cli import CLI
 from mininet.log import setLogLevel
+from mininet.log import setLogLevel, info
 
 def topology():
     # Crear la red
