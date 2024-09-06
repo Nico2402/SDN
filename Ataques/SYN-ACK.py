@@ -5,7 +5,6 @@ import time
 from pypacker.layer12 import ethernet
 from pypacker.layer3 import ip
 from pypacker.layer4 import tcp
-from pypacker.pypacker import Packer
 import socket
 
 def create_syn_packet(src_ip, dst_ip, dst_port):
