@@ -6,8 +6,13 @@ from mininet.log import setLogLevel, info
 
 def topology():
     # Crear la red
-    net = Mininet(controller=RemoteController, switch=OVSSwitch)
 
+    #net = Mininet(controller=RemoteController, switch=OVSSwitch)
+    net = Mininet( topo=None,
+                   build=False,
+                   link=OVSLink,
+                   ipBase='10.0.0.0/8')
+                   
     # Agregar controlador
     c0 = net.addController(name='c0',
                       controller=RemoteController,
