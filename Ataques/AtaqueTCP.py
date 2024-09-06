@@ -39,4 +39,4 @@ if __name__ == "__main__":
     for i in range(100):  # Ajusta el número de hilos según sea necesario
         thread = threading.Thread(target=send_tcp_ack, args=(target_ip, target_port))
         thread.start()
-        time.sleep(0.1)  # Retraso breve para escalonar la creación de conexiones
+        time.sleep(1)  # Retraso breve para escalonar la creación de conexiones
