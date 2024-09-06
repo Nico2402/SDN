@@ -16,12 +16,14 @@ def create_syn_packet(src_ip, dst_ip, src_port, dst_port):
     # Crear el paquete TCP SYN
     tcp_pkt = tcp.TCP(sport=src_port, dport=dst_port, flags='S', seq=1000)
 
-    # Ensamblar el paquete completo
-    pkt = eth / ip_pkt / tcp_pkt
+    # Convertir cada capa a bytes
+    eth_bytes = bytes(eth)
+    ip_bytes = bytes(ip_pkt)
+    tcp_bytes = bytes(tcp_pkt)
 
-    # Convertir el paquete a bytes
-    packet_bytes = bytes(pkt)
-    return packet_bytes
+    # Ensamblar el paquete completo: Ethernet + IP + TCP
+    pkt = eth_bytes + ip_bytes + tcp_bytes
+    return pkt
 
 def send_packet(packet, iface):
     # Crear un socket raw
