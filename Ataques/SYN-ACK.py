@@ -2,20 +2,29 @@ from scapy.all import *
 import threading
 import time
 
+def create_syn_packet(src_ip, dst_ip, dst_port):
+
 from pypacker.layer12 import ethernet
 from pypacker.layer3 import ip
 from pypacker.layer4 import tcp
 import socket
 
-def create_syn_packet(src_ip, dst_ip, dst_port):
-
-    source_ports = list(range(1024, 65535))
-    sport = random.choice(source_ports)
+def create_syn_packet(src_ip, dst_ip, src_port, dst_port):
+    # Crear el paquete Ethernet
     eth = ethernet.Ethernet(dst='ff:ff:ff:ff:ff:ff', src='52:6f:7b:49:78:20', type=0x0800)
+
+    # Crear el paquete IP
     ip_pkt = ip.IP(src=src_ip, dst=dst_ip)
-    tcp_pkt = tcp.TCP(sport=sport, dport=dst_port, flags='S', seq=1000)
+
+    # Crear el paquete TCP SYN
+    tcp_pkt = tcp.TCP(sport=src_port, dport=dst_port, flags='S', seq=1000)
+
+    # Ensamblar el paquete completo
     pkt = eth / ip_pkt / tcp_pkt
-    return pkt
+
+    # Convertir el paquete a bytes
+    packet_bytes = bytes(pkt)
+    return packet_bytes
 
 def send_packet(packet, iface):
     # Crear un socket raw
@@ -25,16 +34,20 @@ def send_packet(packet, iface):
     sock.bind((iface, 0))
 
     # Enviar el paquete
-    sock.send(packet.bytes)
+    sock.send(packet)
     print("Paquete SYN enviado!")
 
-
 if __name__ == "__main__":
-    source_ip= "10.0.0.2"
-    target_ip = "10.0.0.1"  # IP del servidor de prueba
-    destination_port = 80      # Puerto del servidor de prueba
-    #for i in range(0):
-    syn_packet = create_syn_packet(source_ip, target_ip,destination_port)
+    # Configura las direcciones IP y puertos
+    source_ip = "10.0.0.2"
+    destination_ip = "10.0.0.1"
+    source_port = 12345
+    destination_port = 80
+
+    # Crear el paquete SYN
+    syn_packet = create_syn_packet(source_ip, destination_ip, source_port, destination_port)
+    
+    # Enviar el paquete SYN a través de la interfaz h2-eth0
     send_packet(syn_packet, 'h2-eth0')
 
 
