@@ -36,7 +36,7 @@ if __name__ == "__main__":
     target_port = 80        # Puerto del servidor de prueba
 
     # Crea múltiples hilos para simular múltiples conexiones simultáneas
-    for i in range(100):  # Ajusta el número de hilos según sea necesario
+    for i in range(10):  # Ajusta el número de hilos según sea necesario
         thread = threading.Thread(target=send_tcp_ack, args=(target_ip, target_port))
         thread.start()
         time.sleep(5)  # Retraso breve para escalonar la creación de conexiones
