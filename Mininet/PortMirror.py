@@ -8,7 +8,11 @@ def topology():
     net = Mininet(controller=RemoteController, switch=OVSSwitch)
 
     # Agregar controlador
-    controller = net.addController('c0', controller=RemoteController, ip='127.0.0.1', port=6653)
+    controller = net.addController(name='c0',
+                      controller=RemoteController,
+                      ip='172.17.0.2',
+                      protocol='tcp',
+                      port=6633)
 
     # Agregar switch
     s1 = net.addSwitch('s1')
@@ -32,7 +36,15 @@ def topology():
 
     print("Puerto espejo configurado en el switch s1 en el puerto", mirror_port)
 
+    info( '*** Starting controllers\n')
+    for controller in net.controllers:
+        controller.start()
+
+    info( '*** Starting switches\n')
+    net.get('s1').start([c0])
     # Iniciar la CLI para interacción
+
+    info( '*** Post configure switches and hosts\n')
     CLI(net)
 
     # Detener la red
