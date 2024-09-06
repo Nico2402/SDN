@@ -8,7 +8,7 @@ import socket
 
 def create_syn_packet(src_ip, dst_ip, src_port, dst_port):
     # Crear el paquete Ethernet
-    eth = ethernet.Ethernet(dst='ff:ff:ff:ff:ff:ff', src='00:00:00:00:00:00', type=0x0800)
+    eth = ethernet.Ethernet(dst='ff:ff:ff:ff:ff:ff', src='52:6f:7b:49:78:20', type=0x0800)
 
     # Crear el paquete IP
     ip_pkt = ip.IP(src=src_ip, dst=dst_ip)
