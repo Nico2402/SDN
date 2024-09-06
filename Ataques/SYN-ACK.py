@@ -5,6 +5,7 @@ from pypacker.layer12 import ethernet
 from pypacker.layer3 import ip
 from pypacker.layer4 import tcp
 import socket
+import struct
 
 def create_syn_packet(src_ip, dst_ip, src_port, dst_port):
     # Crear el paquete Ethernet
@@ -13,11 +14,14 @@ def create_syn_packet(src_ip, dst_ip, src_port, dst_port):
         src=b'\x00\x00\x00\x00\x00\x00', 
         type=0x0800
     )
+    
     # Crear el paquete IP
     ip_pkt = ip.IP(
         src=src_ip, 
-        dst=dst_ip
+        dst=dst_ip,
+        proto=ip.IP_PROTO_TCP
     )
+    
     # Crear el paquete TCP SYN
     tcp_pkt = tcp.TCP(
         sport=src_port, 
@@ -25,11 +29,11 @@ def create_syn_packet(src_ip, dst_ip, src_port, dst_port):
         flags='S', 
         seq=1000
     )
-
+    
     # Construir el paquete completo en formato binario
-    eth_bytes = eth_pkt.raw()
-    ip_bytes = ip_pkt.raw()
-    tcp_bytes = tcp_pkt.raw()
+    eth_bytes = eth_pkt.build()
+    ip_bytes = ip_pkt.build()
+    tcp_bytes = tcp_pkt.build()
 
     # Ensamblar el paquete completo: Ethernet + IP + TCP
     pkt = eth_bytes + ip_bytes + tcp_bytes
