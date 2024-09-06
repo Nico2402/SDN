@@ -5,35 +5,35 @@ import time
 def send_tcp_ack(ip, port):
     # Crear el paquete SYN para iniciar la conexión
     syn = IP(dst=ip)/TCP(dport=port, flags='S')
-    syn_ack = sr1(syn, timeout=10)  # Enviar y recibir el SYN-ACK
+    syn_ack = sr1(syn, timeout=10, verbose=0)  # Enviar y recibir el SYN-ACK
     
     if syn_ack is None:
         print(f"Conexión a {ip}:{port} falló al recibir SYN-ACK.")
         return
 
     # Asegúrate de que se haya recibido un SYN-ACK
-    if syn_ack.haslayer(TCP) and syn_ack[TCP].flags == 'SA':
-        # Crear el paquete ACK para completar el three-way handshake
-        ack = IP(dst=ip)/TCP(dport=port, sport=syn_ack[TCP].dport, flags='A', seq=syn_ack.ack, ack=syn_ack.seq + 1)
-        send(ack)
-        print(f"Conexión establecida a {ip}:{port}")
+    #if syn_ack.haslayer(TCP) and syn_ack[TCP].flags == 'SA':
+    #    # Crear el paquete ACK para completar el three-way handshake
+    #    ack = IP(dst=ip)/TCP(dport=port, sport=syn_ack[TCP].dport, flags='A', seq=syn_ack.ack, ack=syn_ack.seq + 1)
+    #    send(ack)
+    #    print(f"Conexión establecida a {ip}:{port}")#
 
         # Enviar paquetes TCP con la bandera ACK para mantener la conexión viva
-        while True:
-            try:
-                # El paquete ACK para mantener la conexión
-                keep_alive = IP(dst=ip)/TCP(dport=port, sport=syn_ack[TCP].dport, flags='A', seq=syn_ack.ack, ack=syn_ack.seq + 1)
-                send(keep_alive)
-                print(f"Enviando ACK a {ip}:{port}")
-                time.sleep(1)  # Pausa breve entre los envíos
-            except KeyboardInterrupt:
-                print("Interrumpido por el usuario.")
-                break
-            except Exception as e:
-                print(f"Error: {e}")
-                break
-    else:
-        print(f"No se recibió un SYN-ACK válido desde {ip}:{port}")
+    #    while True:
+    #        try:
+    #            # El paquete ACK para mantener la conexión
+    #            keep_alive = IP(dst=ip)/TCP(dport=port, sport=syn_ack[TCP].dport, flags='A', seq=syn_ack.ack, ack=syn_ack.seq + 1)
+    #            send(keep_alive)
+    #            print(f"Enviando ACK a {ip}:{port}")
+    #            time.sleep(1)  # Pausa breve entre los envíos
+    #        except KeyboardInterrupt:
+    #            print("Interrumpido por el usuario.")
+    #            break
+    #        except Exception as e:
+    #            print(f"Error: {e}")
+    #            break
+    #else:
+    #    print(f"No se recibió un SYN-ACK válido desde {ip}:{port}")
 
 if __name__ == "__main__":
     target_ip = "10.0.0.1"  # IP del servidor de prueba
