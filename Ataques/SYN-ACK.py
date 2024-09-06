@@ -34,7 +34,7 @@ if __name__ == "__main__":
     target_ip = "10.0.0.1"  # IP del servidor de prueba
     destination_port = 80      # Puerto del servidor de prueba
     #for i in range(0):
-    syn_packet = create_syn_packet(source_ip, destination_ip,destination_port)
+    syn_packet = create_syn_packet(source_ip, target_ip,destination_port)
     send_packet(syn_packet, 'h2-eth0')
 
 
