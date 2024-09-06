@@ -8,7 +8,7 @@ import socket
 
 def create_syn_packet(src_ip, dst_ip, src_port, dst_port):
     # Crear el paquete Ethernet
-    eth = ethernet.Ethernet(dst='ff:ff:ff:ff:ff:ff', src='52:6f:7b:49:78:20', type=0x0800)
+    eth_pkt = ethernet.Ethernet(dst=b'\xff\xff\xff\xff\xff\xff', src=b'\x00\x00\x00\x00\x00\x00', type=0x0800)
 
     # Crear el paquete IP
     ip_pkt = ip.IP(src=src_ip, dst=dst_ip)
@@ -16,10 +16,10 @@ def create_syn_packet(src_ip, dst_ip, src_port, dst_port):
     # Crear el paquete TCP SYN
     tcp_pkt = tcp.TCP(sport=src_port, dport=dst_port, flags='S', seq=1000)
 
-    # Convertir cada capa a bytes
-    eth_bytes = bytes(eth)
-    ip_bytes = bytes(ip_pkt)
-    tcp_bytes = bytes(tcp_pkt)
+    # Construir el paquete completo en formato binario
+    eth_bytes = eth_pkt.pack()
+    ip_bytes = ip_pkt.pack()
+    tcp_bytes = tcp_pkt.pack()
 
     # Ensamblar el paquete completo: Ethernet + IP + TCP
     pkt = eth_bytes + ip_bytes + tcp_bytes
