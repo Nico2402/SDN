@@ -9,7 +9,7 @@ def topology():
     net = Mininet(controller=RemoteController, switch=OVSSwitch)
 
     # Agregar controlador
-    controller = net.addController(name='c0',
+    c0 = net.addController(name='c0',
                       controller=RemoteController,
                       ip='172.17.0.2',
                       protocol='tcp',
