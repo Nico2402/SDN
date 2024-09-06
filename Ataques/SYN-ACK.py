@@ -8,8 +8,9 @@ def send_tcp_ack(ip, port):
     #sport = random.choice(source_ports)
     
     syn = IP(dst=ip)/TCP(sport=1024, dport=port, flags='S')
-    send(syn,timeout=1000)
-    #syn_ack = sr1(syn, timeout=10, verbose=0)  # Enviar y recibir el SYN-ACK
+    #send(syn,timeout=1000)
+    time.sleep(2)
+    syn_ack = sr1(syn, timeout=10, verbose=0)  # Enviar y recibir el SYN-ACK
 
     #if syn_ack is None:
     #    print(f"Conexión a {ip}:{port} falló al recibir SYN-ACK.")
