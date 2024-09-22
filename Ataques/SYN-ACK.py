@@ -28,7 +28,8 @@ if __name__ == "__main__":
     target_ip = "10.0.0.1"  # IP del servidor de prueba
     target_port = 80      # Puerto del servidor de prueba
     syn = create_syn_packet(target_ip,target_port)
-    send_packet(syn, 'h2-eth0')
+    for i in range(0,5000):
+        send_packet(syn, 'h2-eth0')
 
     #if syn_ack is None:
     #    print(f"Conexión a {ip}:{port} falló al recibir SYN-ACK.")
