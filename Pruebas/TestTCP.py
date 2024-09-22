@@ -1,7 +1,7 @@
 from scapy.all import *
 
 # Enviar el SYN
-ip = IP(src="10.0.0.2", dst="10.0.0.1")
+ip = IP(dst="10.0.0.1")
 
 
 for i in range(0,5000):
