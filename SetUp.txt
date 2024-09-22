@@ -9,7 +9,7 @@ docker container stop onos
 sudo docker exec -ti onos /bin/bash
 sudo docker exec -ti mininet /bin/bash
 
-http://52.207.205.4:8181/onos/ui/login.html
+http://54.160.147.219:8181/onos/ui/login.html
 
 OpenFlow Base Provider
 Reactive Forwarding
@@ -50,7 +50,7 @@ ps aux | grep mininet
 
 mnexec -a [PID] /bin/bash
 
-mnexec -a 181 /bin/bash
+mnexec -a 3002 /bin/bash
 
 --CORRER SERVIDOR HTTP
 python3 -m http.server 80
