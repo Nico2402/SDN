@@ -3,7 +3,7 @@ from scapy.all import *
 # Enviar el SYN
 ip = IP(src="10.0.0.2", dst="10.0.0.1")
 tcp_syn = TCP(sport=RandShort(), dport=80, flags="S", seq=0)
-syn_ack = sr1(ip/tcp_syn, timeout=10)
+syn_ack = sr1(ip/tcp_syn, timeout=5)
 
 # Enviar el ACK para completar el handshake
 if syn_ack:
