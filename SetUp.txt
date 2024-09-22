@@ -49,7 +49,7 @@ ps aux | grep mininet
 
 mnexec -a [PID] /bin/bash
 
-mnexec -a 156 /bin/bash
+mnexec -a 135 /bin/bash
 
 --CORRER SERVIDOR HTTP
 python3 -m http.server 80
