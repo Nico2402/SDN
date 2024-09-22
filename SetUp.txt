@@ -9,7 +9,7 @@ docker container stop onos
 sudo docker exec -ti onos /bin/bash
 sudo docker exec -ti mininet /bin/bash
 
-http://54.160.147.219:8181/onos/ui/login.html
+http://34.229.97.81:8181/onos/ui/login.html
 
 OpenFlow Base Provider
 Reactive Forwarding
@@ -17,7 +17,6 @@ Control Message Stats Provider
 OpenFlow Agent
 OpenFlow Provider Suite
 Openflow overlay
-
 
 -- PRUEBAS
 
