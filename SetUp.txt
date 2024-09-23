@@ -49,10 +49,13 @@ ps aux | grep mininet
 
 mnexec -a [PID] /bin/bash
 
-mnexec -a 135 /bin/bash
+mnexec -a 149 /bin/bash
 
 --CORRER SERVIDOR HTTP
 python3 -m http.server 80
 
 
 iptables -A OUTPUT -p tcp --tcp-flags RST RST -j DROP
+
+
+sudo tshark -i h11-eth0 -f "not lldp"
