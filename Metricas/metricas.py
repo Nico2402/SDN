@@ -7,7 +7,7 @@ def get_cpu_percent():
     return psutil.cpu_percent(interval=0.5)
 
 def main():
-    duration = 5  # duración total en segundos
+    duration = 60  # duración total en segundos
     interval = 0.5  # intervalo entre muestras en segundos
     filename = "cpu_usage.csv"
 
