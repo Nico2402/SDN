@@ -16,3 +16,4 @@ while True:
     # Comprobar si se recibió SYN-ACK
     if syn_ack is not None and TCP in syn_ack and syn_ack[TCP].flags == "SA":
         print(f"Conexión semiabierta en el puerto {sport}")
+        
