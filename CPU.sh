@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Configuración
-DURATION=60  # Duración total en segundos
+DURATION=3  # Duración total en segundos
 INTERVAL=0.5  # Intervalo entre muestras en segundos
 OUTPUT_FILE="glances_data.csv"
 
