@@ -15,10 +15,10 @@ def pingen(qp,ifa,hServerIP):
   
 hServerIP = sys.argv[1] 
 qp = int(sys.argv[2]) 
-ifs=os.listdir('/sys/class/net/') 
-
+#ifs= os.listdir('/sys/class/net/') 
+ifs = "h1-eth0"
 for i in ifs: 
     if i != 'lo' and i != 'eth0': 
-        pingen(qp,i, hServerIP) 
+        pingen(qp, i, hServerIP) 
         print(i) 
         break  
