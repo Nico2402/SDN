@@ -27,5 +27,5 @@ def send_packet_in_flood(controller_ip, controller_port, iface):
 if __name__ == "__main__":  
     controller_ip = "172.17.0.2"  # IP del controlador ONOS (ajustar según tu entorno)
     controller_port = 6633         # Puerto del controlador OpenFlow (6633 es típico para OpenFlow)
-    iface = "s1-eth1"              # Cambia esto a la interfaz del switch en Mininet
+    iface = "eth0"              # Cambia esto a la interfaz del switch en Mininet
     send_packet_in_flood(controller_ip, controller_port, iface)
