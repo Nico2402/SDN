@@ -21,7 +21,7 @@ def send_packet_in_flood(controller_ip, controller_port, iface):
     # Enviar paquetes en un bucle infinito
     while True:
         sendp(packet, iface=iface)  # Enviar el paquete por la interfaz especificada
-        time.sleep(1)  # Controlar la tasa de envío de paquetes (10ms entre cada paquete)
+        time.sleep(0.5)  # Controlar la tasa de envío de paquetes (10ms entre cada paquete)
 
 
 if __name__ == "__main__":  
